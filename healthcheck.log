@@ -1,0 +1,32 @@
+2026-09-26 08:30:39,340 - Disk Check Executed
+2026-09-26 08:30:39,340 - Filesystem      Size  Used Avail Use% Mounted on
+none            7.7G     0  7.7G   0% /usr/lib/modules/6.18.33.2-microsoft-standard-WSL2
+none            7.7G  4.0K  7.7G   1% /mnt/wsl
+drivers         475G  151G  325G  32% /usr/lib/wsl/drivers
+/dev/sdd       1007G  2.0G  954G   1% /
+none            7.7G   36K  7.7G   1% /mnt/wslg
+none            7.7G     0  7.7G   0% /usr/lib/wsl/lib
+rootfs          7.7G  2.8M  7.7G   1% /init
+none            7.7G  528K  7.7G   1% /run
+none            7.7G     0  7.7G   0% /run/lock
+none            7.7G     0  7.7G   0% /run/shm
+none            7.7G   80K  7.7G   1% /mnt/wslg/versions.txt
+none            7.7G   80K  7.7G   1% /mnt/wslg/doc
+C:\             475G  151G  325G  32% /mnt/c
+tmpfs           1.6G   20K  1.6G   1% /run/user/1000
+2026-09-26 08:31:49,003 - Disk Check Executed
+2026-09-26 08:31:49,003 - Filesystem      Size  Used Avail Use% Mounted on
+none            7.7G     0  7.7G   0% /usr/lib/modules/6.18.33.2-microsoft-standard-WSL2
+none            7.7G  4.0K  7.7G   1% /mnt/wsl
+drivers         475G  151G  325G  32% /usr/lib/wsl/drivers
+/dev/sdd       1007G  2.0G  954G   1% /
+none            7.7G   36K  7.7G   1% /mnt/wslg
+none            7.7G     0  7.7G   0% /usr/lib/wsl/lib
+rootfs          7.7G  2.8M  7.7G   1% /init
+none            7.7G  528K  7.7G   1% /run
+none            7.7G     0  7.7G   0% /run/lock
+none            7.7G     0  7.7G   0% /run/shm
+none            7.7G   80K  7.7G   1% /mnt/wslg/versions.txt
+none            7.7G   80K  7.7G   1% /mnt/wslg/doc
+C:\             475G  151G  325G  32% /mnt/c
+tmpfs           1.6G   20K  1.6G   1% /run/user/1000
