@@ -1,65 +1,156 @@
+#!/usr/bin/env python3
+
 import subprocess
-
-print("=" * 50)
-print(" Linux Server Health Check ")
-print("=" * 50)
-
-# Check Uptime
-print("\n[1] Server Uptime")
-uptime = subprocess.getoutput("uptime -p")
-print(uptime)
-
-# Check CPU Usage
-print("\n[2] CPU Usage")
-cpu = subprocess.getoutput(
-    "top -bn1 | grep '%Cpu' | awk '{print $2}'"
-)
-print(f"CPU Usage: {cpu}%")
-
-# Check Memory Usage
-print("\n[3] Memory Usage")
-memory = subprocess.getoutput("free -h")
-print(memory)
-
-# Check Disk Usage
-print("\n[4] Disk Usage")
-disk = subprocess.getoutput("df -h")
-print(disk)
-
-# Top 5 Memory Consuming Processes
-print("\n[5] Top 5 Memory Processes")
-processes = subprocess.getoutput(
-    "ps aux --sort=-%mem | head -6"
-)
-print(processes)
-
-print("\nHealth Check Completed Successfully")
-
 import logging
-import subprocess
+import shutil
 
+
+# ---------------------------------
+# Logging Configuration
+# ---------------------------------
 logging.basicConfig(
     filename="healthcheck.log",
     level=logging.INFO,
-    format="%(asctime)s - %(message)s"
+    format="%(asctime)s - %(levelname)s - %(message)s"
 )
 
-disk = subprocess.getoutput("df -h")
 
-logging.info("Disk Check Executed")
-logging.info(disk)
+# ---------------------------------
+# Run Linux Command
+# ---------------------------------
+def run_command(command):
+    try:
+        return subprocess.getoutput(command)
+    except Exception as error:
+        return f"Error: {error}"
 
-print("Check healthcheck.log")
+
+# ---------------------------------
+# Server Uptime Check
+# ---------------------------------
+def check_uptime():
+    print("\n[1] Server Uptime")
+
+    uptime = run_command("uptime -p")
+
+    print(uptime)
+    logging.info(f"Server Uptime: {uptime}")
 
 
+# ---------------------------------
+# CPU Usage Check
+# ---------------------------------
+def check_cpu():
+    print("\n[2] CPU Usage")
 
-import shutil
+    cpu = run_command(
+        "top -bn1 | grep '%Cpu' | awk '{print $2}'"
+    )
 
-total, used, free = shutil.disk_usage("/")
+    print(f"CPU Usage: {cpu}%")
+    logging.info(f"CPU Usage: {cpu}%")
 
-usage = used / total * 100
 
-if usage > 80:
-    print("WARNING : Disk Usage Above 80%")
-else:
-    print("Disk Usage Normal")
+# ---------------------------------
+# Memory Usage Check
+# ---------------------------------
+def check_memory():
+    print("\n[3] Memory Usage")
+
+    memory = run_command("free -h")
+
+    print(memory)
+    logging.info("Memory Usage:")
+    logging.info(memory)
+
+
+# ---------------------------------
+# Disk Usage Check
+# ---------------------------------
+def check_disk():
+    print("\n[4] Disk Usage")
+
+    disk = run_command("df -h")
+
+    print(disk)
+
+    logging.info("Disk Usage:")
+    logging.info(disk)
+
+
+# ---------------------------------
+# Top Processes Check
+# ---------------------------------
+def check_processes():
+    print("\n[5] Top 5 Memory Consuming Processes")
+
+    processes = run_command(
+        "ps aux --sort=-%mem | head -6"
+    )
+
+    print(processes)
+
+    logging.info("Top Processes:")
+    logging.info(processes)
+
+
+# ---------------------------------
+# Disk Alert Check
+# ---------------------------------
+def check_disk_alert():
+
+    total, used, free = shutil.disk_usage("/")
+
+    usage_percentage = (used / total) * 100
+
+    print("\n[6] Disk Alert Status")
+
+    if usage_percentage > 80:
+        message = (
+            f"WARNING: Disk Usage Above 80% "
+            f"({usage_percentage:.2f}%)"
+        )
+        print(message)
+        logging.warning(message)
+
+    else:
+        message = (
+            f"Disk Usage Normal "
+            f"({usage_percentage:.2f}%)"
+        )
+        print(message)
+        logging.info(message)
+
+
+# ---------------------------------
+# Main Function
+# ---------------------------------
+def main():
+
+    print("=" * 60)
+    print("        Linux Server Health Check Script")
+    print("=" * 60)
+
+    logging.info(
+        "========== Health Check Started =========="
+    )
+
+    check_uptime()
+    check_cpu()
+    check_memory()
+    check_disk()
+    check_processes()
+    check_disk_alert()
+
+    print("\nHealth Check Completed Successfully")
+
+    logging.info(
+        "========== Health Check Completed =========="
+    )
+
+
+# ---------------------------------
+# Program Entry Point
+# ---------------------------------
+if __name__ == "__main__":
+    main()
